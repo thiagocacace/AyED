@@ -8,20 +8,29 @@ int main()
 {
   int n{};
   int itre{};
-  double res{};
+  double res = 0;
+  double verificacion = 0.0000001;
+  double anterior_res{};
 
-  while (itre < 1000000)
+  while (itre < 100000000)
   {
-    int op = 1;
-    res += (((pow(-1, n)) / ((2 * n) + 1)) * 4);
-
+    res += (((pow(-1, n)) / ((2 * n) + 1)) * 4); // Formula de Leibniz
     n++;
     itre++;
+
+    if (abs(res - anterior_res) < verificacion) // Verificar si alcanzó la precisión deseada
+    {
+      break;
+    }
+    else
+    {
+      anterior_res = res;
+    }
   }
 
-  cout << "El valor de pi es: ";
-  cout << fixed << setprecision(6);
-  cout << res << endl;
+  res = floor(res * 1000000) / 1000000; // Sirve para eliminar todos los decimales que vienen despues del sexto, para que luego de imprimir no se redondeen
+
+  cout << "\nEl valor de pi es: " << fixed << setprecision(6) << res << endl;
 
   return 0;
 }
